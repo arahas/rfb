@@ -1,0 +1,15 @@
+rfb/
+│── app/  
+│   ├── __init__.py  
+│   ├── main.py             # Entry point for the Streamlit UI  
+│   ├── search.py           # Contains your get_flights_with_additional_info function  
+│   ├── ui.py               # Handles UI logic  
+│── services/  
+│   ├── __init__.py  
+│   ├── flight_service.py   # Abstraction for interacting with fast_flights  
+│── tests/  
+│   ├── __init__.py  
+│   ├── test_search.py      # Unit tests for search functions  
+│── requirements.txt        # Dependencies  
+│── .gitignore              # Ignore unnecessary files  
+│── README.md               # Project overview  
