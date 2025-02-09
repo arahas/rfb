@@ -4,6 +4,7 @@ import psycopg2
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+from .analysis_views import create_analysis_views
 
 # Load environment variables to access database configuration
 load_dotenv()
@@ -110,3 +111,12 @@ def store_flight_search(flight_data):
     finally:
         if 'conn' in locals():
             conn.close()
+
+def initialize_database():
+    """Initialize database tables and views"""
+    conn = create_connection()
+    try:
+        create_flights_table(conn)
+        create_analysis_views(conn)
+    finally:
+        conn.close()

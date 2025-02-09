@@ -250,6 +250,16 @@
     "fetch_mode": "normal"
   },
   {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-08-07",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
     "from_airport": "MKE",
     "to_airport": "SEA",
     "date": "2025-02-09",

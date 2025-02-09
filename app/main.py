@@ -5,6 +5,9 @@ import os
 import pandas as pd
 from datetime import datetime, timedelta
 import time
+import plotly.express as px
+import plotly.graph_objects as go
+
 
 # Ensure the parent directory is in the system path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -18,11 +21,25 @@ from services.configuration_service import (
     FlightConfiguration
 )
 from services.batch_processor import process_configurations, filter_valid_configurations
+from services.analysis_views import get_analysis_data
+from services.flight_database import create_connection
 
-st.title("Reguler Flyer Buddy")
+
+st.title("Reguler Flyer Buddy 😎")
+
+def initialize_session_states():
+    """Initialize all session state variables if they don't exist"""
+    if 'show_route_analysis' not in st.session_state:
+        st.session_state.show_route_analysis = False
+    if 'show_weekly_trends' not in st.session_state:
+        st.session_state.show_weekly_trends = False
+    if 'show_price_analysis' not in st.session_state:
+        st.session_state.show_price_analysis = False
+    if 'show_raw_data' not in st.session_state:
+        st.session_state.show_raw_data = False
 
 # Add tabs to separate single search and batch processing
-tab1, tab2 = st.tabs(["Single Search", "Batch Processing"])
+tab1, tab2, tab3 = st.tabs(["Single Search", "Batch Processing", "Analysis"])
 
 with tab1:
     # Input Fields
@@ -212,3 +229,267 @@ with tab2:
             st.success("Configurations loaded successfully!")
         except FileNotFoundError:
             st.error("No saved configurations found.")
+
+with tab3:
+    st.header("Flight Price Analysis")
+    
+    initialize_session_states()
+    
+    conn = create_connection()
+    
+    # Common filters at the top
+    col1, col2 = st.columns(2)
+    with col1:
+        from_airport = st.text_input("From Airport", "SEA")
+    with col2:
+        to_airport = st.text_input("To Airport", "MKE")
+
+    # 1. Route Analysis
+    st.subheader("🛫 Route Analysis by Day of Week")
+    if st.button("Show Route Analysis"):
+        st.session_state.show_route_analysis = not st.session_state.show_route_analysis
+
+    if st.session_state.show_route_analysis:
+        route_data = get_analysis_data(
+            conn, 
+            'route_analysis',
+            from_airport=from_airport,
+            to_airport=to_airport
+        )
+        
+        if route_data:
+            df = pd.DataFrame(route_data)
+            day_names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 
+                       'Friday', 'Saturday']
+            # Convert day_of_week to integer before indexing
+            df['day_name'] = df['day_of_week'].apply(lambda x: day_names[int(x)])
+            
+            # Create the bar chart
+            fig = go.Figure()
+            
+            # Add Historical High bars (black)
+            fig.add_trace(go.Bar(
+                x=df['day_name'],
+                y=df['historical_high'],
+                name='Historical High',
+                marker_color='black',
+                width=0.2
+            ))
+            
+            # Add Latest Price bars (red)
+            fig.add_trace(go.Bar(
+                x=df['day_name'],
+                y=df['latest_price'],
+                name='Latest Price',
+                marker_color='red',
+                width=0.2
+            ))
+            
+            # Add Historical Low bars (green)
+            fig.add_trace(go.Bar(
+                x=df['day_name'],
+                y=df['historical_low'],
+                name='Historical Low',
+                marker_color='green',
+                width=0.2
+            ))
+            
+            # Update layout
+            fig.update_layout(
+                title='Price Analysis by Day of Week',
+                xaxis_title='Day of Week',
+                yaxis_title='Price ($)',
+                barmode='group',  # Group bars side by side
+                showlegend=True,
+                bargap=0.15,      # Gap between bars in the same group
+                bargroupgap=0.1   # Gap between bar groups
+            )
+            
+            st.plotly_chart(fig)
+            st.dataframe(df)
+        else:
+            st.warning("No route analysis data available")
+
+    # 2. Price Trends by Query Date
+    st.subheader("📈 Price Trends by Query Date")
+    if st.button("Show Price Trends"):
+        st.session_state.show_weekly_trends = not st.session_state.show_weekly_trends
+
+    if st.session_state.show_weekly_trends:
+        trends_data = get_analysis_data(
+            conn, 
+            'price_trends',
+            from_airport=from_airport,
+            to_airport=to_airport
+        )
+        
+        if trends_data:
+            df = pd.DataFrame(trends_data)
+            
+            # Create the line plot
+            fig = go.Figure()
+            
+            # Get unique query dates
+            unique_query_dates = sorted(df['query_date'].unique())
+            
+            # Add a line for each query date
+            for query_date in unique_query_dates:
+                mask = df['query_date'] == query_date
+                df_filtered = df[mask]
+                
+                fig.add_trace(go.Scatter(
+                    x=df_filtered['departure_date'],
+                    y=df_filtered['min_price'],
+                    name=f'Prices as of {query_date.strftime("%Y-%m-%d")}',
+                    mode='lines+markers'
+                ))
+            
+            fig.update_layout(
+                title='Price Trends by Query Date',
+                xaxis_title='Departure Date',
+                yaxis_title='Price ($)',
+                showlegend=True
+            )
+            
+            st.plotly_chart(fig)
+            
+            # Show the data in a table format
+            st.dataframe(df.pivot(
+                index='departure_date',
+                columns='query_date',
+                values='min_price'
+            ).reset_index())
+        else:
+            st.warning("No price trends data available")
+
+    # Initialize session state variables if they don't exist
+    if 'show_price_analysis' not in st.session_state:
+        st.session_state.show_price_analysis = False
+
+    if 'show_raw_data' not in st.session_state:
+        st.session_state.show_raw_data = False
+
+    # 3. Comprehensive Price Analysis
+    st.subheader("📊 Comprehensive Price Analysis")
+    if st.button("Show Price Analysis"):
+        st.session_state.show_price_analysis = not st.session_state.show_price_analysis
+
+    if st.session_state.show_price_analysis:
+        # Fetch all necessary data
+        latest_data = get_analysis_data(conn, 'latest_prices',
+                                      from_airport=from_airport, to_airport=to_airport)
+        lowest_data = get_analysis_data(conn, 'lowest_prices',
+                                      from_airport=from_airport, to_airport=to_airport)
+        highest_data = get_analysis_data(conn, 'highest_prices',
+                                      from_airport=from_airport, to_airport=to_airport)
+        
+        if any([latest_data, lowest_data, highest_data]):
+            # Combine all data into a single DataFrame
+            dfs = []
+            merge_cols = ['departure', 'airline_name', 'from_airport', 'to_airport']
+            
+            if latest_data:
+                df_latest = pd.DataFrame(latest_data)
+                df_latest['departure'] = pd.to_datetime(df_latest['departure'])
+                dfs.append(df_latest)
+            if lowest_data:
+                df_lowest = pd.DataFrame(lowest_data)
+                df_lowest['departure'] = pd.to_datetime(df_lowest['departure'])
+                dfs.append(df_lowest)
+            if highest_data:
+                df_highest = pd.DataFrame(highest_data)
+                df_highest['departure'] = pd.to_datetime(df_highest['departure'])
+                dfs.append(df_highest)
+            
+            # Merge all DataFrames
+            df_combined = dfs[0]
+            for df in dfs[1:]:
+                df_combined = pd.merge(df_combined, df, on=merge_cols, how='outer')
+            
+            # Create comprehensive visualization
+            fig = go.Figure()
+            
+            # Add high price line (black)
+            fig.add_trace(go.Scatter(
+                x=df_combined['departure'],
+                y=df_combined['highest_price'],
+                line=dict(color='black', width=2),
+                name='High Price'
+            ))
+            
+            # Add low price line (green)
+            fig.add_trace(go.Scatter(
+                x=df_combined['departure'],
+                y=df_combined['lowest_price'],
+                line=dict(color='green', width=2),
+                name='Low Price'
+            ))
+            
+            # Add shaded area between high and low prices
+            fig.add_trace(go.Scatter(
+                x=df_combined['departure'],
+                y=df_combined['highest_price'],
+                fill=None,
+                mode='lines',
+                line_color='rgba(0,0,0,0)',
+                showlegend=False
+            ))
+            
+            fig.add_trace(go.Scatter(
+                x=df_combined['departure'],
+                y=df_combined['lowest_price'],
+                fill='tonexty',
+                mode='lines',
+                line_color='rgba(0,0,0,0)',
+                fillcolor='rgba(128,128,128,0.2)',
+                name='Price Range'
+            ))
+            
+            # Add latest price as scatter points
+            fig.add_trace(go.Scatter(
+                x=df_combined['departure'],
+                y=df_combined['latest_price'],
+                mode='markers',
+                marker=dict(
+                    color='red',
+                    size=8,
+                    symbol='circle'
+                ),
+                name='Latest Price'
+            ))
+            
+            fig.update_layout(
+                title='Price Analysis Over Time',
+                xaxis_title='Departure Date',
+                yaxis_title='Price ($)',
+                showlegend=True,
+                hovermode='x unified'
+            )
+            
+            st.plotly_chart(fig)
+            st.dataframe(df_combined)
+        else:
+            st.warning("""No price analysis data available. This could be because:
+            1. No flight searches have been performed yet
+            2. The specified route has no recorded data
+            3. The data is still being collected
+            
+            Try performing some flight searches first or checking a different route.""")
+
+    # 4. Flight Searches Data
+    st.subheader("🔍 Flight Searches Data")
+    if st.button("Show Raw Data"):
+        st.session_state.show_raw_data = not st.session_state.show_raw_data
+
+    if st.session_state.show_raw_data:
+        flight_searches_data = get_analysis_data(conn, 'flight_searches', from_airport=from_airport, to_airport=to_airport)
+        if flight_searches_data:
+            flight_searches_df = pd.DataFrame(flight_searches_data)
+            st.dataframe(flight_searches_df)
+        else:
+            st.warning("No flight searches data available.")
+    else:
+        st.write("Click the button above to view the raw flight searches data.")
+
+    conn.close()
+
