@@ -29,10 +29,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def generate_configs(from_airport: str, to_airport: str) -> str:
-    """Generate configurations for the next 3 months"""
+    """Generate configurations for the next 6 months"""
     try:
         start_date = date.today()
-        end_date = start_date + timedelta(days=90)  # 3 months
+        end_date = start_date + timedelta(days=180)  # 6 months
         
         logger.info(f"Generating configurations from {start_date} to {end_date}")
         
@@ -59,7 +59,6 @@ def generate_configs(from_airport: str, to_airport: str) -> str:
     except Exception as e:
         logger.error(f"Error generating configurations: {str(e)}")
         raise
-
 def run_batch_process(config_file: str, delay: int = 5):
     """Run batch processing on the configuration file"""
     try:
