@@ -1,0 +1,262 @@
+[
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-02-14",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-02-21",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-02-28",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-03-07",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-03-14",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-03-21",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-03-28",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-04-04",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-04-11",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-04-18",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-04-25",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-05-02",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "SEA",
+    "to_airport": "MKE",
+    "date": "2025-05-09",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-02-10",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-02-17",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-02-24",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-03-03",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-03-10",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-03-17",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-03-24",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-03-31",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-04-07",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-04-14",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-04-21",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-04-28",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  },
+  {
+    "from_airport": "MKE",
+    "to_airport": "SEA",
+    "date": "2025-05-05",
+    "trip_type": "one-way",
+    "seat_class": "economy",
+    "max_stops": 0,
+    "num_adults": 1,
+    "fetch_mode": "normal"
+  }
+]

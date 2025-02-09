@@ -2,3 +2,4 @@ fast_flights
 streamlit
 pytest
 pytest-mock
+click
