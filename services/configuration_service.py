@@ -19,7 +19,7 @@ class FlightConfiguration:
 def generate_date_sequence(
     start_date: datetime,
     end_date: datetime,
-    weekday: int  # 0 = Monday, 6 = Sunday
+    weekday: int  # 0 = Sunday, 6 = Saturday
 ) -> List[datetime]:
     dates = []
     current = start_date

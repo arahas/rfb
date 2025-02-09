@@ -11,9 +11,15 @@ load_dotenv()
 
 def create_connection():
     """Create a connection to our PostgreSQL database"""
+    # Get system username as default
+    default_user = getpass.getuser()
+    
     return psycopg2.connect(
         dbname=os.getenv('DB_NAME', 'rfb'),
-        host=os.getenv('DB_HOST', 'localhost')
+        user=os.getenv('DB_USER', default_user),
+        password=os.getenv('DB_PASSWORD', ''),
+        host=os.getenv('DB_HOST', 'localhost'),
+        port=os.getenv('DB_PORT', '5432')
     )
 
 def parse_datetime(date_str):

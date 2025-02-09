@@ -4,6 +4,7 @@ from datetime import datetime
 import sys
 import os
 from typing import List
+import time
 
 # Add the project root to Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__))))
@@ -16,8 +17,8 @@ from services.configuration_service import (
     FlightConfiguration
 )
 from services.batch_processor import process_configurations
-from services.analysis_views import refresh_analysis_views
-from services.flight_database import create_connection
+from services.analysis_views import refresh_analysis_views, create_analysis_views
+from services.flight_database import create_connection, create_flights_table
 from fast_flights import FlightData, Passengers
 
 @click.group()
@@ -25,16 +26,14 @@ def cli():
     """
     Regular Flyer Buddy (RFB) CLI - Flight Search and Analysis Tool
 
-    This CLI provides four main commands:
+    This CLI provides commands for:
 
     \b
-    1. search         - Perform single flight searches
+    1. search           - Perform single flight searches
     2. generate-configs - Generate configuration files for batch processing
-    3. batch-process  - Process multiple flight searches from a config file
-    4. refresh-views  - Refresh database materialized views for analysis
-
-    Use --help with any command for detailed usage information.
-    Example: ./cli.py search --help
+    3. batch-process    - Process multiple flight searches from a config file
+    4. refresh-views    - Refresh database materialized views for analysis
+    5. init-db         - Initialize database tables and views
     """
     pass
 
@@ -174,24 +173,56 @@ def batch_process(config_file, delay):
         sys.exit(1)
 
 @cli.command()
-def refresh_views():
-    """
-    Refresh all materialized views in the database.
-
-    Updates all analysis views with the latest data from the flight_searches table.
-    This should be run after adding new flight search results to the database.
-
-    \b
-    Example:
-        ./cli.py refresh-views
-    """
-    click.echo("Refreshing materialized views...")
+def init_db():
+    """Initialize database tables and materialized views."""
+    click.echo("Initializing database...")
     conn = create_connection()
     try:
-        refresh_analysis_views(conn)
-        click.echo("Successfully refreshed all materialized views!")
+        click.echo("Creating flight_searches table...")
+        create_flights_table(conn)
+        click.echo("Creating analysis views...")
+        create_analysis_views(conn)
+        click.secho("Database initialization completed successfully!", fg='green')
     except Exception as e:
-        click.echo(f"Error refreshing views: {str(e)}", err=True)
+        click.secho(f"Error during initialization: {e}", fg='red')
+        sys.exit(1)
+    finally:
+        conn.close()
+
+@cli.command()
+def refresh_views():
+    """Refresh all materialized views with latest data."""
+    click.echo("Starting materialized views refresh...")
+    conn = create_connection()
+    try:
+        views = [
+            'flight_daily_summary',
+            'route_analysis',
+            'price_trends',
+            'advance_purchase_analysis',
+            'latest_prices',
+            'lowest_prices',
+            'highest_prices',
+            'average_prices'
+        ]
+        
+        with click.progressbar(views, label='Refreshing views') as view_list:
+            for view in view_list:
+                try:
+                    start_time = time.time()
+                    with conn.cursor() as cur:
+                        cur.execute(f"REFRESH MATERIALIZED VIEW {view}")
+                        conn.commit()
+                    duration = time.time() - start_time
+                    click.echo(f"✓ {view}: {duration:.2f}s")
+                except Exception as e:
+                    click.secho(f"✗ Error refreshing {view}: {str(e)}", fg='red')
+                    continue
+        
+        click.secho("\nRefresh operation completed successfully!", fg='green')
+        
+    except Exception as e:
+        click.secho(f"Critical error during refresh: {str(e)}", fg='red')
         sys.exit(1)
     finally:
         conn.close()
