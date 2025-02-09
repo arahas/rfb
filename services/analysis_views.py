@@ -1,6 +1,6 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import psycopg2
-from .database import create_connection
+from .database_connection import create_connection
 
 def create_analysis_views(conn):
     """Create all materialized views for flight analysis"""

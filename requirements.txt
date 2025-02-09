@@ -3,3 +3,5 @@ streamlit
 pytest
 pytest-mock
 click
+psycopg2-binary
+python-dotenv

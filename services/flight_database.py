@@ -3,24 +3,9 @@
 import psycopg2
 from datetime import datetime
 import os
-from dotenv import load_dotenv
+from collections import OrderedDict
+from .database_connection import create_connection
 from .analysis_views import create_analysis_views
-
-# Load environment variables to access database configuration
-load_dotenv()
-
-def create_connection():
-    """Create a connection to our PostgreSQL database"""
-    # Get system username as default
-    default_user = getpass.getuser()
-    
-    return psycopg2.connect(
-        dbname=os.getenv('DB_NAME', 'rfb'),
-        user=os.getenv('DB_USER', default_user),
-        password=os.getenv('DB_PASSWORD', ''),
-        host=os.getenv('DB_HOST', 'localhost'),
-        port=os.getenv('DB_PORT', '5432')
-    )
 
 def parse_datetime(date_str):
     """Convert date strings from flight data into proper datetime objects"""
