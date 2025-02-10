@@ -21,7 +21,7 @@ from services.configuration_service import (
     FlightConfiguration
 )
 from services.batch_processor import process_configurations, filter_valid_configurations
-from services.analysis_views import get_analysis_data
+from services.analysis_views import get_analysis_data, refresh_analysis_views
 from services.flight_database import create_connection
 
 
@@ -236,6 +236,14 @@ with tab3:
     initialize_session_states()
     
     conn = create_connection()
+    
+    # Add refresh button
+    if st.button("🔄 Refresh Analysis Data"):
+        try:
+            refresh_analysis_views(conn)
+            st.success("Analysis views refreshed successfully!")
+        except Exception as e:
+            st.error(f"Error refreshing views: {str(e)}")
     
     # Common filters at the top
     col1, col2 = st.columns(2)

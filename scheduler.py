@@ -4,6 +4,7 @@ import os
 from datetime import datetime, date, timedelta
 import logging
 import click
+import time
 
 # Add the project root to Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__))))
@@ -89,28 +90,40 @@ def refresh_materialized_views():
             conn.close()
 
 @click.command()
-@click.option('--from-airport', '-f', required=True, help='Departure airport IATA code')
-@click.option('--to-airport', '-t', required=True, help='Arrival airport IATA code')
+@click.option('--from-airport', '-f', help='Departure airport IATA code')
+@click.option('--to-airport', '-t', help='Arrival airport IATA code')
 @click.option('--delay', default=5, help='Delay between requests in seconds')
-def run_workflow(from_airport: str, to_airport: str, delay: int):
-    """Run the complete workflow of generating configs, processing, and refreshing views"""
-    try:
-        logger.info("Starting automated workflow")
-        
-        # Step 1: Generate configurations
-        config_file = generate_configs(from_airport, to_airport)
-        
-        # Step 2: Run batch processing
-        run_batch_process(config_file, delay)
-        
-        # Step 3: Refresh views
-        refresh_materialized_views()
-        
-        logger.info("Workflow completed successfully")
-        
-    except Exception as e:
-        logger.error(f"Workflow failed: {str(e)}")
-        sys.exit(1)
+@click.option('--continuous', is_flag=True, default=False, 
+              help='Run in continuous mode (for container deployment)')
+def run_workflow(from_airport, to_airport, delay, continuous):
+    """Run the workflow either once or continuously"""
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[logging.StreamHandler(sys.stdout)]
+    )
+
+    if continuous:
+        while True:
+            try:
+                logging.info("Starting scheduled workflow")
+                if from_airport and to_airport:
+                    # Run with specific airports
+                    process_specific_route(from_airport, to_airport, delay)
+                else:
+                    # Run all configured routes
+                    process_all_routes(delay)
+                
+                logging.info("Workflow completed, sleeping for 1 hour")
+                time.sleep(3600)
+            except Exception as e:
+                logging.error(f"Error in scheduled workflow: {e}")
+                time.sleep(300)
+    else:
+        # One-off execution
+        if not (from_airport and to_airport):
+            raise click.UsageError("Both --from-airport and --to-airport are required for one-off execution")
+        process_specific_route(from_airport, to_airport, delay)
 
 if __name__ == "__main__":
-    run_workflow() 
+    run_workflow()
