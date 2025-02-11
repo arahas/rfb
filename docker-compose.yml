@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - DB_NAME=rfb
+      - DB_USER=jinwooje
+      - DB_PASSWORD=password1!
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      - db
+    command: ["streamlit", "run", "app/main.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+  db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: rfb
+      POSTGRES_USER: jinwooje
+      POSTGRES_PASSWORD: password1!
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres_data:

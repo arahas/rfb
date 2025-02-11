@@ -1,7 +1,9 @@
 fast_flights
+primp==0.11.0
 streamlit
 pytest
 pytest-mock
 click
 psycopg2-binary
 python-dotenv
+plotly
