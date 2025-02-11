@@ -286,3 +286,62 @@
 2025-02-10 05:53:10,250 - INFO - Starting view refresh
 2025-02-10 05:53:10,289 - INFO - Successfully refreshed all materialized views
 2025-02-10 05:53:10,289 - INFO - Workflow completed successfully
+2025-02-11 06:16:56,198 - INFO - Starting automated workflow
+2025-02-11 06:16:56,198 - INFO - Generating configurations from 2025-02-11 to 2025-08-10
+2025-02-11 06:16:56,199 - INFO - Saved 51 configurations to flight_configs_20250211_061656.json
+2025-02-11 06:16:56,199 - INFO - Starting batch processing of flight_configs_20250211_061656.json
+2025-02-11 06:17:02,205 - INFO - response: https://try.playwright.tech/service/control/run 200 113136
+2025-02-11 06:17:09,591 - INFO - response: https://try.playwright.tech/service/control/run 200 113159
+2025-02-11 06:17:17,209 - INFO - response: https://try.playwright.tech/service/control/run 200 113129
+2025-02-11 06:17:30,187 - INFO - response: https://try.playwright.tech/service/control/run 200 113063
+2025-02-11 06:17:37,781 - INFO - response: https://try.playwright.tech/service/control/run 200 113081
+2025-02-11 06:17:45,007 - INFO - response: https://try.playwright.tech/service/control/run 200 113115
+2025-02-11 06:17:52,798 - INFO - response: https://try.playwright.tech/service/control/run 200 115258
+2025-02-11 06:18:04,444 - INFO - response: https://try.playwright.tech/service/control/run 200 115249
+2025-02-11 06:18:14,863 - INFO - response: https://try.playwright.tech/service/control/run 200 113087
+2025-02-11 06:18:23,882 - INFO - response: https://try.playwright.tech/service/control/run 200 115268
+2025-02-11 06:18:33,425 - INFO - response: https://try.playwright.tech/service/control/run 200 115284
+2025-02-11 06:18:41,334 - INFO - response: https://try.playwright.tech/service/control/run 200 115201
+2025-02-11 06:18:49,744 - INFO - response: https://try.playwright.tech/service/control/run 200 115199
+2025-02-11 06:18:57,049 - INFO - response: https://try.playwright.tech/service/control/run 200 181631
+2025-02-11 06:19:05,468 - INFO - response: https://try.playwright.tech/service/control/run 200 183817
+2025-02-11 06:19:13,764 - INFO - response: https://try.playwright.tech/service/control/run 200 183840
+2025-02-11 06:19:20,679 - INFO - response: https://try.playwright.tech/service/control/run 200 181644
+2025-02-11 06:19:27,978 - INFO - response: https://try.playwright.tech/service/control/run 200 181667
+2025-02-11 06:19:35,471 - INFO - response: https://try.playwright.tech/service/control/run 200 181682
+2025-02-11 06:19:43,103 - INFO - response: https://try.playwright.tech/service/control/run 200 181660
+2025-02-11 06:19:50,902 - INFO - response: https://try.playwright.tech/service/control/run 200 181699
+2025-02-11 06:19:58,797 - INFO - response: https://try.playwright.tech/service/control/run 200 181732
+2025-02-11 06:20:06,407 - INFO - response: https://try.playwright.tech/service/control/run 200 181647
+2025-02-11 06:20:16,839 - INFO - response: https://try.playwright.tech/service/control/run 200 181666
+2025-02-11 06:20:24,786 - INFO - response: https://try.playwright.tech/service/control/run 200 182679
+2025-02-11 06:20:34,394 - INFO - response: https://try.playwright.tech/service/control/run 200 182649
+2025-02-11 06:20:42,765 - INFO - response: https://try.playwright.tech/service/control/run 200 113136
+2025-02-11 06:20:51,603 - INFO - response: https://try.playwright.tech/service/control/run 200 115326
+2025-02-11 06:20:59,019 - INFO - response: https://try.playwright.tech/service/control/run 200 113086
+2025-02-11 06:21:06,369 - INFO - response: https://try.playwright.tech/service/control/run 200 113119
+2025-02-11 06:21:13,680 - INFO - response: https://try.playwright.tech/service/control/run 200 113109
+2025-02-11 06:21:20,844 - INFO - response: https://try.playwright.tech/service/control/run 200 115249
+2025-02-11 06:21:28,554 - INFO - response: https://try.playwright.tech/service/control/run 200 115248
+2025-02-11 06:21:36,724 - INFO - response: https://try.playwright.tech/service/control/run 200 113075
+2025-02-11 06:21:44,307 - INFO - response: https://try.playwright.tech/service/control/run 200 113118
+2025-02-11 06:21:53,634 - INFO - response: https://try.playwright.tech/service/control/run 200 113122
+2025-02-11 06:22:01,629 - INFO - response: https://try.playwright.tech/service/control/run 200 113112
+2025-02-11 06:22:09,046 - INFO - response: https://try.playwright.tech/service/control/run 200 113047
+2025-02-11 06:22:16,378 - INFO - response: https://try.playwright.tech/service/control/run 200 115239
+2025-02-11 06:22:23,949 - INFO - response: https://try.playwright.tech/service/control/run 200 184832
+2025-02-11 06:22:31,601 - INFO - response: https://try.playwright.tech/service/control/run 200 184790
+2025-02-11 06:22:39,022 - INFO - response: https://try.playwright.tech/service/control/run 200 184744
+2025-02-11 06:22:48,090 - INFO - response: https://try.playwright.tech/service/control/run 200 182610
+2025-02-11 06:22:55,911 - INFO - response: https://try.playwright.tech/service/control/run 200 182657
+2025-02-11 06:23:04,369 - INFO - response: https://try.playwright.tech/service/control/run 200 182676
+2025-02-11 06:23:11,972 - INFO - response: https://try.playwright.tech/service/control/run 200 182677
+2025-02-11 06:23:19,360 - INFO - response: https://try.playwright.tech/service/control/run 200 181653
+2025-02-11 06:23:26,870 - INFO - response: https://try.playwright.tech/service/control/run 200 181691
+2025-02-11 06:23:34,806 - INFO - response: https://try.playwright.tech/service/control/run 200 181695
+2025-02-11 06:23:45,712 - INFO - response: https://try.playwright.tech/service/control/run 200 181680
+2025-02-11 06:23:57,089 - INFO - response: https://try.playwright.tech/service/control/run 200 181702
+2025-02-11 06:24:00,188 - INFO - Batch processing completed successfully
+2025-02-11 06:24:00,188 - INFO - Starting view refresh
+2025-02-11 06:24:00,213 - INFO - Successfully refreshed all materialized views
+2025-02-11 06:24:00,213 - INFO - Workflow completed successfully
